@@ -1,0 +1,38 @@
+trigger:
+- master
+
+pr:
+  - "*"
+
+variables:
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+jobs:
+- job: Linux
+  pool:
+    vmImage:  'ubuntu-latest'
+  steps:
+    - task: DotNetCoreInstaller@0
+      inputs:
+        version: '3.0.100-preview6-012264'
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: build
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+- job: Windows
+  pool:
+    vmImage: 'Windows-2019'
+  steps:
+    - task: DotNetCoreInstaller@0
+      inputs:
+        version: '3.0.100-preview6-012264'
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: build
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+    
