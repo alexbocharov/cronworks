@@ -28,7 +28,7 @@
     <VersionSuffixBuildOfTheDayPadded>$(VersionSuffixBuildOfTheDay.PadLeft(2, '0'))</VersionSuffixBuildOfTheDayPadded>
 
     <!-- TODO: consider using semver 2.0 instead, when/if https://github.com/dotnet/core-setup/issues/4795 is resolved -->
-    <_BuildNumberSuffix>$(_BuildNumberShortDate)-$(VersionSuffixBuildOfTheDayPadded)</_BuildNumberSuffix>
+    <_BuildNumberSuffix>$(_BuildNumberShortDate).$(VersionSuffixBuildOfTheDayPadded)</_BuildNumberSuffix>
 
     <FileRevisionVersion>$(_BuildNumberShortDate)</FileRevisionVersion>
   </PropertyGroup>
@@ -42,7 +42,7 @@
   <PropertyGroup>
     <_BuildNumberSuffix Condition=" '$(_BuildNumberSuffix)' == '' ">t000</_BuildNumberSuffix>
     <VersionPrefix>$(MajorVersion).$(MinorVersion).$(PatchVersion)</VersionPrefix>
-    <VersionSuffix>$(PreReleaseLabel)-$(_BuildNumberSuffix)</VersionSuffix>
+    <VersionSuffix>$(PreReleaseLabel).$(_BuildNumberSuffix)</VersionSuffix>
     <BrandingVersionSuffix>$(PreReleaseBrandingLabel) Build $(BuildNumberSuffix)</BrandingVersionSuffix>
 
     <ExperimentalVersionPrefix>0.1.$(PatchVersion)</ExperimentalVersionPrefix>
