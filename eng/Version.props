@@ -72,7 +72,7 @@
     <InformationalVersion>$(VersionPrefix)-$(VersionSuffix)</InformationalVersion>
 
     <!-- This is used for error checking to ensure generated code and baselines are up to date when we increment the patch. -->
-    <PreviousParusAzkReleaseVersion Condition=" '$(PatchVersion)' != '0' ">$(MajorVersion).$(MinorVersion).$([MSBuild]::Subtract($(PatchVersion), 1))</PreviousParusAzkReleaseVersion>
+    <PreviousCronWorksReleaseVersion Condition=" '$(PatchVersion)' != '0' ">$(MajorVersion).$(MinorVersion).$([MSBuild]::Subtract($(PatchVersion), 1))</PreviousCronWorksReleaseVersion>
   </PropertyGroup>
 
   <!-- Run 'dotnet msbuild version.props' to test changes to this file. -->
