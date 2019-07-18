@@ -25,10 +25,9 @@
     <_BuildNumberShortDate>$([MSBuild]::Add($([MSBuild]::Add($([MSBuild]::Multiply($(_BuildNumberYY), 1000)), $([MSBuild]::Multiply($(_BuildNumberMM), 50)))), $(_BuildNumberDD)))</_BuildNumberShortDate>
 
     <VersionSuffixBuildOfTheDay>$([System.Convert]::ToInt32($(_BuildNumberR)))</VersionSuffixBuildOfTheDay>
-    <VersionSuffixBuildOfTheDayPadded>$(VersionSuffixBuildOfTheDay.PadLeft(2, '0'))</VersionSuffixBuildOfTheDayPadded>
 
     <!-- TODO: consider using semver 2.0 instead, when/if https://github.com/dotnet/core-setup/issues/4795 is resolved -->
-    <_BuildNumberSuffix>$(_BuildNumberShortDate).$(VersionSuffixBuildOfTheDayPadded)</_BuildNumberSuffix>
+    <_BuildNumberSuffix>$(_BuildNumberShortDate).$(VersionSuffixBuildOfTheDay)</_BuildNumberSuffix>
 
     <FileRevisionVersion>$(_BuildNumberShortDate)</FileRevisionVersion>
   </PropertyGroup>
@@ -62,24 +61,8 @@
     <PackageVersion>$(VersionPrefix)</PackageVersion>
     <PackageVersion Condition=" '$(IncludePreReleaseLabelInPackageVersion)' == 'true' ">$(VersionPrefix)-$(VersionSuffix)</PackageVersion>
 
-    <ExperimentalPackageVersion>$(ExperimentalVersionPrefix)</ExperimentalPackageVersion>
-    <ExperimentalPackageVersion Condition=" '$(IncludePreReleaseLabelInPackageVersion)' == 'true' ">$(VersionPrefix)-$(VersionSuffix)</ExperimentalPackageVersion>
-
-    <VersionMetadata Condition=" '$(DotNetProductBuildId)' != '' ">pb-$(DotNetProductBuildId)</VersionMetadata>
-    <VersionSuffix Condition=" '$(VersionMetadata)' != '' ">$(VersionSuffix)+$(VersionMetadata)</VersionSuffix>
-    <ExperimentalVersionSuffix>$(VersionSuffix)</ExperimentalVersionSuffix>
-
-    <InformationalVersion>$(VersionPrefix)-$(VersionSuffix)</InformationalVersion>
-
     <!-- This is used for error checking to ensure generated code and baselines are up to date when we increment the patch. -->
     <PreviousCronWorksReleaseVersion Condition=" '$(PatchVersion)' != '0' ">$(MajorVersion).$(MinorVersion).$([MSBuild]::Subtract($(PatchVersion), 1))</PreviousCronWorksReleaseVersion>
   </PropertyGroup>
-
-  <!-- Run 'dotnet msbuild version.props' to test changes to this file. -->
-  <Target Name="InspectVersionNumbers">
-    <Message Importance="High" Text="InformationalVersion          = '$(InformationalVersion)'" />
-    <Message Importance="High" Text="PackageVersion                = '$(PackageVersion)'" />
-    <Message Importance="High" Text="PackageBrandingVersion        = '$(PackageBrandingVersion)'" />
-  </Target>
 
 </Project>

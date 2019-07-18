@@ -27,6 +27,6 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19351-01" PrivateAssets="All"/>
   </ItemGroup>
 
-  <Import Project="eng\Version.props" />
+  <Import Project="eng\Versions.props" />
 
 </Project>
